@@ -6,8 +6,9 @@ pipeline {
       SERVICE_NAME = "fleetman-webapp"
       ORGANIZATION_NAME = "kudadigital"
       YOUR_DOCKERHUB_USERNAME = "augeos" //(it doesn't matter if you don't have one)
-      
       REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
+      registry = ${REPOSITORY_TAG}
+      dockerImage = ''
    }
 
    stages {
@@ -26,6 +27,16 @@ pipeline {
       stage('Build and Push Image') {
          steps {
            sh 'docker image build -t ${REPOSITORY_TAG} .'
+         }
+      }
+
+      stage('Push Image to Registry') {
+         steps {
+            script {
+               docker.withRegistry('', credentialsId: 'DockerHub') {
+                  dockerImage.push()
+               }
+            }
          }
       }
 
