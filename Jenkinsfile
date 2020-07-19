@@ -27,16 +27,7 @@ pipeline {
       stage('Build and Push Image') {
          steps {
            sh 'docker image build -t ${REPOSITORY_TAG} .'
-         }
-      }
-
-      stage('Push Image to Registry') {
-         steps {
-            script {
-               docker.withRegistry('https://registry.hub.docker.com', credentialsId: 'DockerHub') {
-                  dockerImage.push()
-               }
-            }
+           sh 'docker push ${REPOSITORY_TAG} .'
          }
       }
 
