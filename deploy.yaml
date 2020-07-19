@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: webapp
-  replicas: 1
+  replicas: 2
   template: # template for the pods
     metadata:
       labels:
@@ -39,6 +39,5 @@ spec:
   ports:
     - name: http
       port: 80
-      nodePort: 30080
 
-  type: NodePort
+  type: ClusterIP
