@@ -24,7 +24,7 @@ pipeline {
          }
       }
 
-      stage('Build and Push Image') {
+      stage('Build and Push Image to Dockerhub') {
          steps {
            sh 'docker image build -t ${REPOSITORY_TAG} .'
            sh 'docker push "${REPOSITORY_TAG}"'
