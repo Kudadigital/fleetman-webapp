@@ -27,6 +27,7 @@ pipeline {
       stage('Build and Push Image to Dockerhub') {
          steps {
            sh 'docker image build -t ${REPOSITORY_TAG} .'
+           sh 'docker login "${credentialsId: 'DockerHub'}"'
            sh 'docker push "${REPOSITORY_TAG}"'
          }
       }
