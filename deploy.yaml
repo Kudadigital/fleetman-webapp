@@ -19,6 +19,9 @@ spec:
           value: production-microservice
         image: ${REPOSITORY_TAG}
         imagePullPolicy: Always
+        # Just spin & wait forever
+        command: [ "/bin/bash", "-c", "--" ]
+        args: [ "while true; do sleep 30; done;" ]
         readinessProbe:
           httpGet:
             path: /
